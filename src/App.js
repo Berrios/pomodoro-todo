@@ -17,14 +17,30 @@ const App = () => {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
 
+  // useEffect(() => {
+  //   let interval = null;
+  //   if (timerOn) {
+  //     interval = setInterval(() => {
+  //       setTime(prevTime => (prevTime === 0 ? 0 : prevTime - 1));
+  //     }, 1000);
+  //   } else if (!timerOn && time !== 0) {
+  //     clearInterval(interval);
+  //   }
+  //   return () => clearInterval(interval);
+  // }, [timerOn, time]);
+
   useEffect(() => {
     let interval = null;
     if (timerOn) {
       interval = setInterval(() => {
         setTime(prevTime => (prevTime === 0 ? 0 : prevTime - 1));
       }, 1000);
-    } else if (!timerOn && time !== 0) {
+    } else if (!timerOn && time === 0) {
       clearInterval(interval);
+      // Trigger an alert when the timer reaches zero
+      setTimeout(() => {
+        alert('Time is up!'); // You can customize the message here
+      }, 1000); // Adjust the delay (in milliseconds) as needed
     }
     return () => clearInterval(interval);
   }, [timerOn, time]);
